@@ -1,0 +1,113 @@
+@import url('https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap');
+
+body {
+  margin: 0;
+  font-family: 'Press Start 2P', cursive;
+  background-color: lightblue;
+}
+
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 2rem;
+}
+
+.container img {
+  display: block;
+  margin: 0px auto 10px auto; /* Top, horizontal center, bottom spacing */
+  width: 120px; /* Adjust size as needed */
+  height: auto; /* Maintain aspect ratio */
+}
+
+.formCard {
+  background-color: #4a5568;
+  padding: 2rem;
+  border-radius: 5px;
+  max-width: 500px;
+  margin: 2rem auto;
+  text-align: center;
+}
+
+.formTitle {
+  font-family: 'Press Start 2P', cursive;
+  font-size: 1.5rem;
+  color: #ffffff;
+  margin-bottom: 2rem;
+}
+
+.formGroup {
+  margin-bottom: 1.5rem;
+  text-align: left;
+}
+
+.formGroup label {
+  font-size: 0.65rem;
+  color: #e2e8f0;
+  display: block;
+  margin-bottom: 0.5rem;
+}
+
+.formGroup input {
+  width: 100%;
+  padding: 0.6rem;
+  font-family: 'Press Start 2P', cursive;
+  font-size: 0.7rem;
+  border: 2px solid #e2e8f0;
+  border-radius: 5px;
+  background-color: #2d3748;
+  color: white;
+  box-sizing: border-box;
+}
+
+.formGroup input:focus {
+  outline: none;
+  border-color: #4a90e2;
+}
+
+.contact-btn {
+  font-family: 'Press Start 2P', cursive;
+  padding: 0.5rem 1rem;
+  font-size: 0.8rem;
+  background-color: #4a90e2;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+  width: 100%;
+}
+
+.contact-btn:hover {
+  background-color: #357abd;
+}
+
+@media (max-width: 600px) {
+  .formTitle {
+    font-size: 1.2rem;
+  }
+
+  .formGroup label {
+    font-size: 0.6rem;
+  }
+
+  .formGroup input {
+    font-size: 0.6rem;
+  }
+
+  .contact-btn {
+    font-size: 0.7rem;
+  }
+}
+
+.bottomTxt {
+  color: white;
+}
+
+.light-red {
+  color: #ff7f7f; /* Light red */
+}
+
+.light-blue {
+  color: #7fbfff; /* Light blue */
+}
+
