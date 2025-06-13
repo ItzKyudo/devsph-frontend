@@ -3,6 +3,9 @@ import '../../css/auth.css';
 import { Link, useNavigate } from 'react-router-dom';
 import axios from 'axios';
 
+/* For Maintenance */
+const urlProcessors = "http://localhost:8000";
+
 interface FormData {
   firstname: string;
   lastname: string;
@@ -32,7 +35,7 @@ function RegistrationForm()  {
   const handleSubmit = (e: FormEvent) => {
   e.preventDefault();
 
-  axios.post("http://localhost:5173/create", formData)
+  axios.post(urlProcessors + "/create", formData)
       .then(function(response) {
         if (response.data && response.data.success) {
           alert(response.data.success);

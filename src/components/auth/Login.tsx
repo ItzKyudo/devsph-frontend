@@ -3,6 +3,9 @@ import '../../css/auth.css';
 import { Link, useNavigate } from 'react-router-dom';
 import axios from 'axios';
 
+/* For Maintenance */
+const urlProcessors = "http://localhost:8000";
+
 interface LoginData {
   email: string;
   password: string;
@@ -26,10 +29,9 @@ function LoginForm() {
   const handleSubmit = (e: FormEvent) => {
     e.preventDefault();
 
-    axios.post("/src/api/client/login.php", loginData).then(response => {
+    axios.post(urlProcessors + "/login", loginData).then(response => {
       if (response.data.success) {
-        alert("Login Successful");
-        navigate('/dashboard'); // Redirect to dashboard or home page
+        navigate('/'); // Redirect to dashboard or home page
       } else {
         alert("Login Failed: " + response.data.message);
       }
