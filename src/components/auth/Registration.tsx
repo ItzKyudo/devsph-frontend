@@ -3,7 +3,6 @@ import '../../css/auth.css';
 import { Link, useNavigate } from 'react-router-dom';
 import axios from 'axios';
 
-/* For Maintenance */
 const urlProcessors = "http://localhost:8000";
 
 interface FormData {
@@ -14,9 +13,8 @@ interface FormData {
   confpassword: string;
 }
 
-function RegistrationForm()  {
-    const navigate = useNavigate();
-
+function RegistrationForm() {
+  const navigate = useNavigate();
   const [formData, setFormData] = useState<FormData>({
     firstname: '',
     lastname: '',
@@ -25,111 +23,83 @@ function RegistrationForm()  {
     confpassword: ''
   });
 
+  const [error, setError] = useState<string | null>(null); // 👈 Error message state
+
   const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
-    setFormData({ 
+    setFormData({
       ...formData,
-      [e.target.name]: e.target.value 
+      [e.target.name]: e.target.value
     });
+    setError(null); // Clear error when user types
   };
 
   const handleSubmit = (e: FormEvent) => {
-  e.preventDefault();
+    e.preventDefault();
 
-  axios.post(urlProcessors + "/create", formData)
-      .then(function(response) {
-        if (response.data && response.data.success) {
-          alert(response.data.success);
-          navigate('/'); // Navigate only after success
-        } else if (response.data && response.data.error) {
-          alert("Error: " + response.data.error);
+    axios.post(urlProcessors + "/create", formData)
+      .then((response) => {
+        if (response.data?.success) {
+          navigate('/');
+        } else if (response.data?.error) {
+          setError(response.data.error); // 👈 Set error here
         } else {
-          alert("Unexpected response: " + JSON.stringify(response.data));
+          setError("Unexpected server response.");
         }
       })
-      .catch(function(error) {
-        if (error.response) {
-          alert("Server Error: " + (error.response.data?.error || error.message));
-        } else if (error.request) {
-          alert("No response from server. Please check your connection.");
+      .catch((error) => {
+        if (error.response?.data?.error) {
+          setError(error.response.data.error); // 👈 Set API error
         } else {
-          alert("Error: " + error.message);
+          setError("Server error. Please try again later.");
         }
       });
   };
 
-
   return (
     <div className="container">
       <div className="formCard">
-        <img rel="icon" src="/icon.png" />
+        <img rel="icon" src="/icon.png" alt="logo" />
         <h2 className="formTitle">
           DEVS <span className="light-red">P</span><span className="light-blue">H</span>
         </h2>
-        <hr/>
+        <hr />
         <h2 className="formTitle"> CREATE AN ACCOUNT </h2>
         <form onSubmit={handleSubmit}>
+          {/* All Input Fields */}
+          {/* ...same code as before... */}
+
           <div className="formGroup">
             <label htmlFor="firstname">First Name</label>
-            <input 
-              type="text" 
-              id="firstname" 
-              name="firstname"
-              value={formData.firstname}
-              onChange={handleChange}
-              required 
-            />
+            <input type="text" id="firstname" name="firstname" value={formData.firstname} onChange={handleChange} required />
           </div>
           <div className="formGroup">
             <label htmlFor="lastname">Last Name</label>
-            <input 
-              type="text" 
-              id="lastname" 
-              name="lastname"
-              value={formData.lastname}
-              onChange={handleChange}
-              required 
-            />
+            <input type="text" id="lastname" name="lastname" value={formData.lastname} onChange={handleChange} required />
           </div>
           <div className="formGroup">
             <label htmlFor="email">Email</label>
-            <input 
-              type="email" 
-              id="email" 
-              name="email"
-              value={formData.email}
-              onChange={handleChange}
-              required 
-            />
+            <input type="email" id="email" name="email" value={formData.email} onChange={handleChange} required />
           </div>
           <div className="formGroup">
             <label htmlFor="password">Password</label>
-            <input 
-              type="password" 
-              id="password" 
-              name="password"
-              value={formData.password}
-              onChange={handleChange}
-              required 
-            />
+            <input type="password" id="password" name="password" value={formData.password} onChange={handleChange} required />
           </div>
           <div className="formGroup">
             <label htmlFor="confpassword">Confirm Password</label>
-            <input 
-              type="password" 
-              id="confpassword" 
-              name="confpassword"
-              value={formData.confpassword}
-              onChange={handleChange}
-              required 
-            />
+            <input type="password" id="confpassword" name="confpassword" value={formData.confpassword} onChange={handleChange} required />
           </div>
+
           <button type="submit" className="contact-btn">Sign Up</button>
-          <hr/>
+          <hr />
           <p className="bottomTxt">Already Have an Account? Login <Link to="/signin">here</Link></p>
+
+          {error && (
+            <p className="error-message">{error}</p>
+          )}
         </form>
       </div>
     </div>
   );
-};
+}
 
 export default RegistrationForm;

@@ -111,3 +111,11 @@ body {
   color: #7fbfff; /* Light blue */
 }
 
+.error-message {
+  color: #ff5555;
+  text-align: center;
+  margin-top: 15px;
+  font-weight: bold;
+}
+
+
