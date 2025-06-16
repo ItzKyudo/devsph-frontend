@@ -1,6 +1,7 @@
 import { BrowserRouter, Routes, Route, useLocation } from 'react-router-dom';
 import { AnimatePresence } from 'framer-motion';
-import React, { useEffect } from 'react';
+import React from 'react';
+import { GoogleOAuthProvider } from '@react-oauth/google';
 
 import Header from './components/Heading';
 import Home from './components/HomeContent';
@@ -10,6 +11,8 @@ import RegistrationForm from './components/auth/Registration';
 import LoginForm from './components/auth/Login';
 
 import PageWrapper from './assets/PageWrapper';
+
+const GOOGLE_CLIENT_ID = "829774376415-jhk1p16hu7005f3oueun09pumf1gsd66.apps.googleusercontent.com";
 
 function AnimatedRoutes() {
   const location = useLocation();
@@ -27,39 +30,23 @@ function AnimatedRoutes() {
   );
 }
 
-function App() {
-  const location = useLocation();
-
-  const hideHeaderRoutes = ['/signup', '/signin'];
-  const shouldHideHeader = hideHeaderRoutes.includes(location.pathname);
-
-  // Set background color based on current route
-  React.useEffect(() => {
-    if (shouldHideHeader) {
-      document.body.style.backgroundColor = '#333333';
-    } else {
-      document.body.style.backgroundColor = ''; // Reset to default or you can set another color
-    }
-
-    // Optional cleanup (especially useful with animations or transitions)
-    return () => {
-      document.body.style.backgroundColor = '';
-    };
-  }, [location.pathname]);
-
+function AppContent() {
   return (
     <>
-      {!shouldHideHeader && <Header />}
+      <Header />
       <AnimatedRoutes />
     </>
   );
 }
 
-
-export default function AppWithRouter() {
+function App() {
   return (
-    <BrowserRouter>
-      <App />
-    </BrowserRouter>
+    <GoogleOAuthProvider clientId={GOOGLE_CLIENT_ID}>
+      <BrowserRouter>
+        <AppContent />
+      </BrowserRouter>
+    </GoogleOAuthProvider>
   );
 }
+
+export default App;

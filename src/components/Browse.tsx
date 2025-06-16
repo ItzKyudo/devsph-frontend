@@ -1,7 +1,6 @@
 import React, { useState } from "react";
 
 
-//EXAMPLE CARDS
 const developers = [
   {
     id: 1,
@@ -46,39 +45,26 @@ function Browse() {
   );
 
   return (
-    <div className="container browseSection">
-      <h2>Find a Developer</h2>
-
-      {/* 🔍 Search Bar */}
+    <div className="browseSection">
+      <h2>Find Developers</h2>
       <input
         type="text"
         placeholder="Search by name or skill..."
         value={search}
         onChange={(e) => setSearch(e.target.value)}
         className="search-bar"
-        style={{
-          width: "100%",
-          padding: "10px",
-          marginBottom: "20px",
-          fontSize: "16px",
-          borderRadius: "8px",
-          border: "1px solid #ccc",
-        }}
       />
-
       <div className="developerCards">
-        {filteredDevelopers.map((dev) => (
-          <div className="developerCard" key={dev.id}>
+        {filteredDevelopers.map((dev, idx) => (
+          <div className="developerCard" key={dev.id} style={{ animation: `cardFadeIn 0.7s cubic-bezier(.4,2,.6,1) forwards`, animationDelay: `${0.1 + idx * 0.1}s` }}>
             <img src={dev.image} alt={dev.name} />
             <h3>{dev.name}</h3>
             <div className="title">{dev.title}</div>
             <div className="description">{dev.description}</div>
-            <div className="skills">
-              <div className="skills-list">
-                {dev.skills.map((skill, index) => (
-                  <div className="skill" key={index}>{skill}</div>
-                ))}
-              </div>
+            <div className="skills-list">
+              {dev.skills.map((skill) => (
+                <span className="skill" key={skill}>{skill}</span>
+              ))}
             </div>
             <button className="contact-btn">Contact</button>
           </div>
